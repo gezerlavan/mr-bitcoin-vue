@@ -4,6 +4,7 @@
         <p>Bitcoin exchange rate: {{ rate }}</p>
         <nav>
             <RouterLink to="/">Home</RouterLink>
+            <RouterLink to="/contact">Contacts</RouterLink>
         </nav>
     </header>
 </template>
