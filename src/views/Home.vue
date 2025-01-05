@@ -1,11 +1,19 @@
 <template>
     <section class="home">
-        <h1>mr-bitcoin homepage</h1>
+        <pre>{{ loggedInUser }}</pre>
     </section>
 </template>
 
 <script>
-export default {}
+import { userService } from '../services/userService'
+
+export default {
+    data() {
+        return {
+            loggedInUser: userService.getUser(),
+        }
+    },
+}
 </script>
 
 <style lang="scss"></style>

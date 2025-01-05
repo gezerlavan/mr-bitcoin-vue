@@ -3,7 +3,7 @@ export const userService = {
 }
 
 const user = {
-    name: 'Puki Ben David',
+    name: 'Satoshi McWallet',
     balance: 100,
     transactions: [],
 }

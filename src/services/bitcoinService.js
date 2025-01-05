@@ -10,7 +10,7 @@ async function getRate() {
     const res = await axios.get(
         'https://blockchain.info/tobtc?currency=USD&value=1'
     )
-    console.log('res.data:', res.data)
+    return res.data
 }
 
 async function getMarketPriceHistory() {

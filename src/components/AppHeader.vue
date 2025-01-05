@@ -1,5 +1,7 @@
 <template>
     <header class="app-header">
+        <p>Hi {{ loggedInUser.name }}</p>
+        <p>Bitcoin exchange rate: {{ rate }}</p>
         <nav>
             <RouterLink to="/">Home</RouterLink>
         </nav>
@@ -7,7 +9,25 @@
 </template>
 
 <script>
-export default {}
+import { bitcoinService } from '@/services/bitcoinService'
+import { userService } from '@/services/userService'
+
+export default {
+    data() {
+        return {
+            loggedInUser: userService.getUser(),
+            rate: null,
+        }
+    },
+    methods: {
+        async getBitcoinRate() {
+            this.rate = await bitcoinService.getRate()
+        },
+    },
+    created() {
+        this.getBitcoinRate()
+    },
+}
 </script>
 
 <style lang="scss">
