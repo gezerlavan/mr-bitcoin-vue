@@ -1,10 +1,11 @@
 <template>
     <section v-if="contacts" class="contact-index">
-        <pre>{{ contacts }}</pre>
+        <ContactList :contacts="contacts" />
     </section>
 </template>
 
 <script>
+import ContactList from '@/components/ContactList.vue'
 import { contactService } from '@/services/contactService'
 
 export default {
@@ -20,6 +21,9 @@ export default {
     },
     created() {
         this.loadContacts()
+    },
+    components: {
+        ContactList,
     },
 }
 </script>
