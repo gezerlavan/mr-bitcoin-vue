@@ -2,6 +2,7 @@
     <section v-if="contacts" class="contact-index">
         <ContactList :contacts="contacts" @remove="removeContact" />
     </section>
+    <p v-else>Loading...</p>
 </template>
 
 <script>

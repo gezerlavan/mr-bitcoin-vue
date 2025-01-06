@@ -3,7 +3,12 @@
         <ul>
             <li v-for="contact in contacts" :key="contact._id">
                 <ContactPreview :contact="contact" />
-                <button @click="onRemoveContact(contact._id)">x</button>
+                <div class="actions">
+                    <button @click="onRemoveContact(contact._id)">x</button>
+                    <RouterLink :to="`/contact/${contact._id}`">
+                        <button>Details</button>
+                    </RouterLink>
+                </div>
             </li>
         </ul>
     </section>
@@ -33,7 +38,7 @@ export default {
 <style lang="scss">
 .contact-list ul {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 10px;
 
     padding: 0;
@@ -44,7 +49,9 @@ export default {
         padding: 10px;
         background-color: rgb(255, 236, 116);
 
-        button {
+        .actions {
+            display: flex;
+            gap: 0.3rem;
             justify-self: end;
         }
     }
