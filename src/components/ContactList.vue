@@ -3,6 +3,7 @@
         <ul>
             <li v-for="contact in contacts" :key="contact._id">
                 <ContactPreview :contact="contact" />
+                <button @click="onRemoveContact(contact._id)">x</button>
             </li>
         </ul>
     </section>
@@ -16,6 +17,11 @@ export default {
         contacts: {
             type: Array,
             required: true,
+        },
+    },
+    methods: {
+        onRemoveContact(contactId) {
+            this.$emit('remove', contactId)
         },
     },
     components: {
@@ -34,8 +40,13 @@ export default {
     list-style: none;
 
     li {
+        display: grid;
         padding: 10px;
         background-color: rgb(255, 236, 116);
+
+        button {
+            justify-self: end;
+        }
     }
 }
 </style>
