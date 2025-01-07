@@ -5,6 +5,7 @@
         <nav>
             <RouterLink to="/">Home</RouterLink>
             <RouterLink to="/contact">Contacts</RouterLink>
+            <RouterLink to="/chart">Chart</RouterLink>
         </nav>
     </header>
 </template>
