@@ -12,6 +12,7 @@
 import ContactFilter from '@/components/ContactFilter.vue'
 import ContactList from '@/components/ContactList.vue'
 import { contactService } from '@/services/contactService'
+import { showErrorMsg, showSuccessMsg } from '@/services/eventBus.service'
 
 export default {
     data() {
@@ -29,8 +30,9 @@ export default {
 
                 const idx = this.contacts.findIndex(c => c._id === contactId)
                 this.contacts.splice(idx, 1)
+                showSuccessMsg(`Removed contact ${contactId}`)
             } catch (error) {
-                alert('Something went wrong removing')
+                showErrorMsg('Couldn\'t remove')
             }
         },
         setFilterBy(filterBy) {
