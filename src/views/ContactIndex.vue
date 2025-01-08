@@ -1,11 +1,12 @@
 <template>
-    <section class="car-index">
+    <section v-if="contacts" class="contact-index">
         <ContactFilter @filter="setFilterBy" />
-        <section v-if="contacts" class="contact-index">
-            <ContactList :contacts="contacts" @remove="removeContact" />
-        </section>
-        <p v-else>Loading...</p>
+        <RouterLink to="/contact/edit">
+            <button>Add contact</button>
+        </RouterLink>
+        <ContactList :contacts="contacts" @remove="removeContact" />
     </section>
+    <p v-else>Loading...</p>
 </template>
 
 <script>
@@ -32,7 +33,7 @@ export default {
                 this.contacts.splice(idx, 1)
                 showSuccessMsg(`Removed contact ${contactId}`)
             } catch (error) {
-                showErrorMsg('Couldn\'t remove')
+                showErrorMsg("Couldn't remove")
             }
         },
         setFilterBy(filterBy) {
@@ -49,4 +50,8 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.contact-index {
+    display: grid;
+}
+</style>

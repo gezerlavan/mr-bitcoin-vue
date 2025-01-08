@@ -31,4 +31,8 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.contact-filter {
+    margin-block-end: 1em;
+}
+</style>

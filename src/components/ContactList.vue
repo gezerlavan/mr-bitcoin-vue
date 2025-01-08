@@ -8,6 +8,9 @@
                     <RouterLink :to="`/contact/${contact._id}`">
                         <button>Details</button>
                     </RouterLink>
+                    <RouterLink :to="`/contact/edit/${contact._id}`">
+                        <button>Edit</button>
+                    </RouterLink>
                 </div>
             </li>
         </ul>
