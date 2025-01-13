@@ -1,9 +1,6 @@
 <template>
     <section v-if="contact" class="contact-edit">
-        <form
-            @submit.prevent="onSaveContact"
-            @change="contact._id && onSaveContact"
-        >
+        <form @submit.prevent="onSaveContact">
             <input
                 v-model="contact.name"
                 type="text"
@@ -19,11 +16,11 @@
                 type="phone"
                 placeholder="Enter phone number"
             />
-            <button v-if="!contact._id">Save</button>
+            <button>Save</button>
         </form>
         <div class="actions">
             <RouterLink to="/contact"><button>Back</button></RouterLink>
-            <button v-if="contact._id" @click="removeContact">Delete</button>
+            <button v-if="contact._id" @click="onRemoveContact">Delete</button>
         </div>
         <pre>{{ contact }}</pre>
     </section>
@@ -41,9 +38,12 @@ export default {
         }
     },
     methods: {
-        async removeContact() {
+        async onRemoveContact() {
             try {
-                await contactService.deleteContact(this.contact._id)
+                await this.$store.dispatch({
+                    type: 'removeContact',
+                    contactId: this.contact._id,
+                })
                 showSuccessMsg(`Removed contact ${this.contact._id}`)
             } catch (error) {
                 showErrorMsg("Couldn't remove")
@@ -51,15 +51,12 @@ export default {
                 this.$router.push('/contact')
             }
         },
-        test() {
-            console.log('Hi')
-        },
         async onSaveContact() {
             try {
-                const contact = await contactService.saveContact(this.contact)
-                showSuccessMsg(`Added contact ${contact._id}`)
+                const savedContact = await contactService.saveContact(this.contact)
+                showSuccessMsg(`Added contact ${savedContact._id}`)
             } catch (error) {
-                showErrorMsg("Couldn't remove")
+                showErrorMsg("Couldn't save")
             } finally {
                 this.$router.push('/contact')
             }
@@ -67,9 +64,10 @@ export default {
     },
     async created() {
         const { id: contactId } = this.$route.params
-        this.contact = contactId
+        const contact = contactId
             ? await contactService.getContactById(contactId)
             : contactService.getEmptyContact()
+        this.contact = { ...contact }
     },
 }
 </script>

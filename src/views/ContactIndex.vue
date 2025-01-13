@@ -12,25 +12,16 @@
 <script>
 import ContactFilter from '@/components/ContactFilter.vue'
 import ContactList from '@/components/ContactList.vue'
-import { contactService } from '@/services/contactService'
 import { showErrorMsg, showSuccessMsg } from '@/services/eventBus.service'
 
 export default {
-    data() {
-        return {
-            contacts: null,
-        }
-    },
     methods: {
         async loadContacts(filterBy = null) {
-            this.contacts = await contactService.getContacts(filterBy)
+            this.$store.dispatch({ type: 'loadContacts', filterBy })
         },
         async removeContact(contactId) {
             try {
-                await contactService.deleteContact(contactId)
-
-                const idx = this.contacts.findIndex(c => c._id === contactId)
-                this.contacts.splice(idx, 1)
+                await this.$store.dispatch({ type: 'removeContact', contactId })
                 showSuccessMsg(`Removed contact ${contactId}`)
             } catch (error) {
                 showErrorMsg("Couldn't remove")
@@ -38,6 +29,11 @@ export default {
         },
         setFilterBy(filterBy) {
             this.loadContacts(filterBy)
+        },
+    },
+    computed: {
+        contacts() {
+            return this.$store.getters.contacts
         },
     },
     created() {
@@ -53,5 +49,9 @@ export default {
 <style lang="scss">
 .contact-index {
     display: grid;
+
+    a {
+        justify-self: start;
+    }
 }
 </style>
